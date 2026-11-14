@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PREY: THE ESCAPE — Android Horror Game by SHIVA × WEBLOOM</title>
+  <meta name="description" content="PREY: THE ESCAPE is a first-person Android horror game. Zara wakes to find her brother Duke gone. Explore a sealed town, search for keys, solve the gates and survive the Ghoul. Free APK download.">
+  <meta name="author" content="SHIVA × WEBLOOM">
+  <meta name="theme-color" content="#07070a">
+  <link rel="canonical" href="./index.html">
+
+  <!-- Favicon / app icons (derived from the game's launcher artwork) -->
+  <link rel="icon" href="assets/icons/favicon-64.png" sizes="64x64" type="image/png">
+  <link rel="icon" href="assets/icons/favicon-512.png" sizes="512x512" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PREY: THE ESCAPE">
+  <meta property="og:title" content="PREY: THE ESCAPE — Every nightmare has a beginning.">
+  <meta property="og:description" content="Zara wakes to an empty bed, a sealed town and something moving between the lamps. First-person horror for Android. Free APK.">
+  <meta property="og:image" content="assets/images/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PREY: THE ESCAPE — Android Horror Game">
+  <meta name="twitter:description" content="Find Duke. Find the way out. First-person horror for Android. Free APK.">
+  <meta name="twitter:image" content="assets/images/og-cover.jpg">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/archive.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "PREY: THE ESCAPE",
+    "alternateName": ["Prey: The Escape", "Static Mist"],
+    "gamePlatform": "Android",
+    "operatingSystem": "Android 7.1 (API 25) or newer, ARM64",
+    "applicationCategory": "GameApplication",
+    "genre": "Horror",
+    "author": { "@type": "Person", "name": "SHIVA × WEBLOOM" },
+    "character": [{ "@type": "Person", "name": "Zara" }],
+    "description": "First-person horror game for Android: Zara searches a sealed, monster-haunted town for her missing brother Duke, solving locked gates to escape."
+  }
+  </script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- PRE-LOAD SCREEN -->
+<div class="preload" id="preload" aria-label="Loading">
+  <div class="preload__galaxy" aria-hidden="true"></div>
+  <div class="preload__ring" aria-hidden="true"></div>
+  <div class="preload__text" role="status">
+    <span class="preload__type"></span>
+    <p>INITIALISING THE NIGHT</p>
+  </div>
+</div>
+
+<!-- GEOMETRY / FX LAYERS (fixed, pointer-events none) -->
+<div class="fx" aria-hidden="true">
+  <div class="fx__fog fx__fog--1"></div>
+  <div class="fx__fog fx__fog--2"></div>
+  <div class="fx__grain"></div>
+  <div class="fx__scanlines"></div>
+  <div class="fx__vignette"></div>
+  <div class="fx__crt"></div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header" id="top">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="#top" aria-label="PREY: THE ESCAPE — home">
+      <img src="assets/icons/icon-192.png" alt="" width="36" height="36" decoding="async">
+      <span class="brand__text">PREY<span class="brand__colon">:</span> THE ESCAPE</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#story">Story</a>
+      <a href="#characters">Characters</a>
+      <a href="#enemies">Enemies</a>
+      <a href="#locations">Locations</a>
+      <a href="#secrets">Secrets</a>
+      <a href="#experience">Experience</a>
+      <a href="#download">Download</a>
+    </nav>
+    <div class="site-header__tools">
+      <button class="chip" id="fxToggle" type="button" aria-pressed="false" title="Toggle CRT / atmospheric FX">
+        <span class="chip__dot" aria-hidden="true"></span>
+        FX
+      </button>
+      <button class="chip" id="soundToggle" type="button" aria-pressed="false" title="Ambient sound (off by default)">
+        <span class="chip__dot" aria-hidden="true"></span>
+        SOUND
+      </button>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero__bg" role="presentation">
+      <img src="assets/images/shot-level1.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
+    </div>
+    <div class="hero__shade" role="presentation"></div>
+
+    <div class="wrap hero__content">
+      <p class="eyebrow">
+        <span class="badge-android" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="14" height="14" focusable="false"><path fill="currentColor" d="M17.6 9.5H6.4v8.1c0 .7.6 1.3 1.3 1.3h.9v2.6c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5v-2.6h1.6v2.6c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5v-2.6h.9c.7 0 1.3-.6 1.3-1.3V9.5zM4.3 9.5c-.8 0-1.5.7-1.5 1.5v5c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5v-5c0-.8-.7-1.5-1.5-1.5zm15.4 0c-.8 0-1.5.7-1.5 1.5v5c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5v-5c0-.8-.7-1.5-1.5-1.5zM15.4 3l1.1-1.9c.1-.2 0-.4-.2-.5-.2-.1-.4 0-.5.2L14.6 3c-.9-.4-1.9-.6-3-.6s-2.1.2-3 .6L7.5.8c-.1-.2-.3-.3-.5-.2-.2.1-.3.3-.2.5L7.9 3C6.6 3.8 5.6 5 5.2 6.4h13.6C18.4 5 17.4 3.8 15.4 3zM9.3 5.1c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7zm5.4 0c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7z"/></svg>
+        </span>
+        ANDROID APK · v1.0.6
+      </p>
+
+      <h1 class="hero__title" id="heroTitle">PREY: THE ESCAPE</h1>
+
+      <p class="hero__tagline">EXPLORE · SURVIVE · ESCAPE</p>
+
+      <p class="hero__desc">
+        Zara wakes to an empty bed. Her brother Duke is gone, the streets outside
+        are sealed, and something is moving between the lamps. Search the town.
+        Find Duke. Find the way out.
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn btn--primary btn--download" href="downloads/PREY_THE_ESCAPE_v1.0.6_RELEASE.apk"
+           download="PREY_THE_ESCAPE_v1.0.6_RELEASE.apk" data-download>
+          <span class="btn__label">DOWNLOAD FOR ANDROID</span>
+          <span class="btn__meta">v1.0.6 · ARM64 · 55.2 MB</span>
+        </a>
+        <a class="btn btn--ghost" href="#trailer">WATCH TRAILER</a>
+        <a class="btn btn--quiet" href="#story">READ THE STORY</a>
+      </div>
+
+      <p class="hero__spec">
+        <span class="pill">Android 7.1+ (API 25)</span>
+        <span class="pill">ARM64</span>
+        <span class="pill">Offline</span>
+        <span class="pill">Outside Google Play</span>
+      </p>
+    </div>
+
+    <a class="scroll-hint" href="#about" aria-label="Scroll to about section">
+      <span aria-hidden="true"></span>
+    </a>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="section" id="about" aria-labelledby="aboutTitle">
+    <div class="wrap">
+      <p class="kicker">01 // About the game</p>
+      <h2 class="section__title" id="aboutTitle">The night is watching you</h2>
+      <div class="grid grid--2">
+        <div class="prose">
+          <p>
+            <strong>PREY: THE ESCAPE</strong> is a first-person horror survival
+            game for Android. Zara's brother and bunkmate, Duke, has vanished
+            from the house. The town outside is sealed by locked gates and walked
+            by things the game calls Ghouls and Zombies.
+          </p>
+          <p>
+            You get four points of health, sixteen inventory slots and a map that
+            shows only what you have found. No quest markers. No hand-holding.
+            You learn the streets by walking them, the locks by trying them, and
+            the route out by surviving long enough to find it.
+          </p>
+          <p>
+            Everything runs on-device. No account, no connection, no ads — just
+            you, the dark and the search.
+          </p>
+        </div>
+        <ul class="fact-list" aria-label="Game facts">
+          <li><span>Genre</span><strong>First-person horror / survival</strong></li>
+          <li><span>Protagonist</span><strong>Zara</strong></li>
+          <li><span>Platform</span><strong>Android (APK, sideload)</strong></li>
+          <li><span>Modes</span><strong>Single-player, offline</strong></li>
+          <li><span>Levels</span><strong>4 escape levels</strong></li>
+          <li><span>Enemies</span><strong>Ghouls &amp; Zombies</strong></li>
+          <li><span>Controls</span><strong>Touch joystick + buttons</strong></li>
+          <li><span>Architecture</span><strong>ARM64</strong></li>
+          <li><span>Save</span><strong>Continue from menu</strong></li>
+          <li><span>Price</span><strong>Free download</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STORY ===================== -->
+  <section class="section chapter chapter--story" id="story" aria-labelledby="storyTitle">
+    <span class="chapter__index" aria-hidden="true">02</span>
+    <div class="wrap">
+      <header class="chapter__head reveal">
+        <p class="kicker">02 // The story</p>
+        <h2 class="chapter__title" id="storyTitle">EVERY NIGHTMARE <br><em>HAS A BEGINNING</em></h2>
+        <p class="chapter__deck">
+          The game opens in the dead of night, in a town where the streetlamps
+          still burn and nobody answers. Zara is asleep. By the time she wakes,
+          her brother Duke is gone.
+        </p>
+      </header>
+
+      <div class="story-cinema">
+        <figure class="story-cinema__plate reveal">
+          <img src="assets/images/shot-level2.webp" alt="A dark service alley in PREY: THE ESCAPE, lit by a single street lamp" width="1280" height="720" loading="lazy" decoding="async">
+          <div class="story-cinema__slate" aria-hidden="true">
+            <span>SCENE 01</span>
+            <span>EXT. TOWN — NIGHT</span>
+          </div>
+          <figcaption><span>03:17</span> The town is awake. Zara is not alone.</figcaption>
+        </figure>
+
+        <div class="story-cinema__beats">
+          <article class="beat reveal">
+            <p class="beat__no" aria-hidden="true">I</p>
+            <h3>The town that stopped breathing</h3>
+            <blockquote>
+              “In the dead of night, morbid monsters and gruesome ghouls stir in
+              the darkness. Rustles turn to screams and gentle gusts turn to shrieks.”
+            </blockquote>
+            <p>
+              That is the game's own opening crawl, not marketing copy. It sets
+              the rules before Zara has left her bed: the night belongs to
+              something else, and the town knows it.
+            </p>
+          </article>
+
+          <article class="beat reveal">
+            <p class="beat__no" aria-hidden="true">II</p>
+            <h3>An empty bed</h3>
+            <p>
+              Zara sleeps restlessly, woken by yelps from the townfolk. When she
+              gets up, Duke — her brother and bunkmate — is gone from the house.
+              No note. No explanation. The game never says why he left; only that
+              she will go after him.
+            </p>
+            <p>
+              The roads out are locked. Why the town is sealed is never explained.
+              What the game shows is simpler and worse: every way out is a gate,
+              and every gate wants a key.
+            </p>
+          </article>
+
+          <article class="beat reveal">
+            <p class="beat__no" aria-hidden="true">III</p>
+            <h3>The search across town</h3>
+            <p>
+              At the first locked gate Zara says it aloud: <em>“Duke? Duke!? My
+              brother must of ran off… maybe through that gate over there…”</em>
+              The backlot gate will not open. Arnold, a neighbour who knows her,
+              insists he has not seen Duke. Further on, Johnny says the same.
+            </p>
+            <p>
+              The town keeps its answers behind locks — and the people who are
+              still here only warn her to keep out of sight.
+            </p>
+          </article>
+
+          <article class="beat reveal">
+            <p class="beat__no" aria-hidden="true">IV</p>
+            <h3>What is hunting her</h3>
+            <p>
+              The build names two hostile types: the <strong>Ghoul</strong> and the
+              <strong>Zombie</strong>. They patrol the streets, notice movement,
+              investigate, chase and strike. Their origin, and why they are here,
+              is never stated on screen.
+            </p>
+            <p>
+              They are not set dressing. A single Ghoul strike deals as much
+              damage as Zara has health.
+            </p>
+          </article>
+
+          <article class="beat reveal">
+            <p class="beat__no" aria-hidden="true">V</p>
+            <h3>The way out</h3>
+            <p>
+              The escape is mechanical: keys carry codes, a two-slot electrical box
+              powers a gate, and the exit is marked with a green light. Later, at
+              the edge of the field, two generator keys and a multicoloured box
+              stand between Zara and the East Gate.
+            </p>
+            <p>
+              Duke is found alive — hurt, calling her name. What lies beyond the
+              East Gate is not established anywhere in the project. The story ends
+              at the escape, not the explanation.
+            </p>
+          </article>
+        </div>
+      </div>
+
+      <div class="intel reveal">
+        <h3 class="intel__title">Case notes <span>— what the game actually establishes</span></h3>
+        <dl class="intel__grid">
+          <div>
+            <dt>The place</dt>
+            <dd>A residential town after dark. In-game signage names the Backlot Gate, the Side Gate and the East Gate; the final map calls the outskirts “The field”.</dd>
+          </div>
+          <div>
+            <dt>Why she is trapped</dt>
+            <dd>Duke is missing, and every route out is locked. Why the town is sealed is <strong>undisclosed</strong>.</dd>
+          </div>
+          <div>
+            <dt>What she must find</dt>
+            <dd>Duke. A matching key for each gate, two generator keys for the electrical box, and a way to power the exit.</dd>
+          </div>
+          <div>
+            <dt>What is hunting</dt>
+            <dd>Ghouls and Zombies, patrolling on NavMesh routes. Their origin and purpose are <strong>undisclosed</strong>.</dd>
+          </div>
+          <div>
+            <dt>The escape</dt>
+            <dd>Open the powered gate and get out. What waits on the other side is <strong>undisclosed</strong>.</dd>
+          </div>
+          <div>
+            <dt>The rule</dt>
+            <dd>Scares come from the choices you make, not scripted jumps — the original design notes say so explicitly.</dd>
+          </div>
+        </dl>
+        <p class="intel__source">
+          Compiled from the intro crawl, in-level signage, map textures and NPC
+          dialogue inside the Unity project. Anything the game does not state is
+          marked <strong>UNDISCLOSED</strong> rather than invented.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CHARACTERS ===================== -->
+  <section class="section chapter chapter--dossier" id="characters" aria-labelledby="charactersTitle">
+    <span class="chapter__index" aria-hidden="true">03</span>
+    <div class="wrap">
+      <header class="chapter__head reveal">
+        <p class="kicker">03 // Character file</p>
+        <h2 class="chapter__title" id="charactersTitle">THE SURVIVOR</h2>
+        <p class="chapter__deck">
+          One playable character. One missing brother. No narrated backstory —
+          only what Zara says, and what she is willing to walk through.
+        </p>
+      </header>
+
+      <div class="archive reveal" id="characterArchive" data-character-archive role="tabpanel" aria-label="Character dossier and interactive 3D model">
+        <div class="archive__stage">
+          <div class="model-viewer" data-viewer="characters" data-label="Character archive">
+            <div class="viewer__canvas" data-viewer-canvas></div>
+            <div class="viewer__atmosphere" aria-hidden="true"></div>
+
+            <div class="viewer__hud viewer__hud--top">
+              <span class="viewer__tag" data-viewer-file>FILE PTE-001</span>
+              <span class="viewer__live"><i aria-hidden="true"></i> LIVE SCAN</span>
+            </div>
+
+            <div class="viewer__toolbar">
+              <button type="button" data-viewer-reset aria-label="Reset 3D camera">RESET VIEW</button>
+              <button type="button" data-viewer-fullscreen aria-label="View model in full screen">FULL SCREEN</button>
+            </div>
+
+            <div class="viewer__loading" data-viewer-loading>
+              <span class="viewer__spinner" aria-hidden="true"></span>
+              <p>RECONSTRUCTING SUBJECT…</p>
+              <small data-viewer-loadmsg>Loading actual game mesh</small>
+            </div>
+
+            <div class="viewer__fallback" data-viewer-fallback hidden role="alert">
+              <span>3D CAPTURE UNAVAILABLE</span>
+              <p data-viewer-fallback-msg>The model could not be loaded. The dossier remains available.</p>
+              <button class="viewer__retry" type="button" data-viewer-retry>RETRY LOAD</button>
+            </div>
+
+            <div class="viewer__foot">
+              <span class="viewer__model" data-viewer-model>ArmFlashlight.fbx · first-person arms</span>
+              <span class="viewer__note" data-viewer-note>ACTUAL FIRST-PERSON ARMS · NO FULL-BODY MODEL EXISTS</span>
+            </div>
+
+            <span class="viewer__hint">DRAG TO ROTATE · SCROLL TO ZOOM</span>
+            <noscript><div class="viewer__noscript">The 3D archive needs JavaScript. The dossier is still readable without it.</div></noscript>
+          </div>
+        </div>
+
+        <div class="archive__file dossier__sheet">
+          <div class="dossier__top">
+            <span data-profile-file>FILE PTE-001</span>
+            <span data-profile-status>STATUS: ACTIVE</span>
+          </div>
+
+          <h3 class="dossier__name" data-profile-name>ZARA</h3>
+          <p class="dossier__role" data-profile-role>THE SURVIVOR · DUKE'S SISTER</p>
+
+          <dl class="dossier__fields" data-profile-fields>
+            <div><dt>Name</dt><dd>Zara <span>established in the intro crawl</span></dd></div>
+            <div><dt>Age</dt><dd>Undisclosed</dd></div>
+            <div><dt>Background</dt><dd>Lives in the town with her brother and bunkmate, Duke. Wakes to find him gone from the house.</dd></div>
+            <div><dt>Personality</dt><dd>Not narrated. She is characterised by action: she searches, unlocks and keeps moving.</dd></div>
+            <div><dt>Role</dt><dd>The player character. The camera is her eyes; she is never shown on screen.</dd></div>
+            <div><dt>Why she is out there</dt><dd>To find Duke. The game does not explain why he left.</dd></div>
+            <div><dt>Model</dt><dd>ArmFlashlight.fbx <span>actual first-person arm rig · ZaraArmV2.png</span></dd></div>
+            <div><dt>Animation</dt><dd>None embedded in the arm rig</dd></div>
+          </dl>
+
+          <div class="profile-anim" data-profile-anim hidden>
+            <span class="profile-anim__label">Animation</span>
+            <div class="profile-anim__buttons" data-anim-buttons></div>
+          </div>
+
+          <blockquote class="dossier__quote" data-profile-quote>
+            “Zara sleeps restlessly in her bed, interrupted by the yelps of the
+            townfolk. She will wake in the hours to come, to find her brother and
+            bunkmate Duke gone from the house.”
+            <cite data-profile-cite>In-game intro crawl</cite>
+          </blockquote>
+
+          <p class="profile-note" data-profile-note>No full-body Zara model exists in the Unity project. Her appearance is never revealed in-game; this viewer shows her actual first-person arms.</p>
+          <span class="dossier__stamp" aria-hidden="true">CLASSIFIED</span>
+        </div>
+      </div>
+
+      <div class="archive__tabs" role="tablist" aria-label="Character files">
+        <button class="archive__tab is-active" type="button" role="tab" aria-selected="true" aria-controls="characterArchive" data-profile="zara">
+          <span>01</span><strong>ZARA</strong><em>THE SURVIVOR</em>
+        </button>
+        <button class="archive__tab" type="button" role="tab" aria-selected="false" aria-controls="characterArchive" data-profile="duke" tabindex="-1">
+          <span>02</span><strong>DUKE</strong><em>BROTHER · MISSING</em>
+        </button>
+        <button class="archive__tab" type="button" role="tab" aria-selected="false" aria-controls="characterArchive" data-profile="townsfolk" tabindex="-1">
+          <span>03</span><strong>ARNOLD &amp; JOHNNY</strong><em>WITNESSES</em>
+        </button>
+      </div>
+
+      <p class="chapter__note">
+        Zara's face is never shown: the game is first-person from start to finish.
+        No age, appearance or personality profile is given in the project, so none
+        is presented here as canon.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== ENEMIES ===================== -->
+  <section class="section chapter chapter--threat" id="enemies" aria-labelledby="enemiesTitle">
+    <span class="chapter__index" aria-hidden="true">04</span>
+    <div class="wrap">
+      <header class="chapter__head reveal">
+        <p class="kicker">04 // Threat file</p>
+        <h2 class="chapter__title" id="enemiesTitle">IT IS HUNTING YOU</h2>
+        <p class="chapter__deck">
+          Two enemy types are configured in the build. One patrols slowly and
+          kills in a single strike. The other is faster, weaker, and never alone
+          for long.
+        </p>
+      </header>
+
+      <div class="threat reveal" data-subject="ghoul">
+        <figure class="threat__frame threat__frame--viewer">
+          <div class="model-viewer model-viewer--threat" data-label="The Ghoul">
+            <div class="viewer__canvas" data-viewer-canvas></div>
+            <div class="viewer__atmosphere" aria-hidden="true"></div>
+
+            <div class="viewer__hud viewer__hud--top">
+              <span class="viewer__tag">SUBJECT 01 · GHOUL</span>
+              <span class="viewer__live"><i aria-hidden="true"></i> LIVE SCAN</span>
+            </div>
+
+            <div class="viewer__toolbar">
+              <button type="button" data-viewer-reset aria-label="Reset 3D camera">RESET VIEW</button>
+              <button type="button" data-viewer-fullscreen aria-label="View the Ghoul in full screen">FULL SCREEN</button>
+            </div>
+
+            <div class="viewer__loading" data-viewer-loading>
+              <span class="viewer__spinner" aria-hidden="true"></span>
+              <p>RECONSTRUCTING SUBJECT…</p>
+              <small data-viewer-loadmsg>Loading actual Ghoul mesh</small>
+            </div>
+
+            <div class="viewer__fallback" data-viewer-fallback hidden role="alert">
+              <span>3D CAPTURE UNAVAILABLE</span>
+              <p data-viewer-fallback-msg>The Ghoul model could not be loaded. The threat file remains available.</p>
+              <button class="viewer__retry" type="button" data-viewer-retry>RETRY LOAD</button>
+            </div>
+
+            <div class="viewer__foot">
+              <span class="viewer__model" data-viewer-model>GhoulJ.prefab · ZombieJ.fbx mesh</span>
+              <span class="viewer__note" data-viewer-note>VERIFIED GHOULJ PREFAB · GHOULJ.PNG TEXTURE</span>
+            </div>
+
+            <span class="viewer__hint">DRAG TO ROTATE · SCROLL TO ZOOM</span>
+            <noscript><div class="viewer__noscript">The 3D specimen needs JavaScript. The threat file is still readable without it.</div></noscript>
+          </div>
+          <figcaption>GHOULJ PREFAB · ZombieJ.FBX MESH + GHOULJ.PNG</figcaption>
+        </figure>
+
+        <div class="threat__readout">
+          <p class="threat__class">CLASSIFIED / HOSTILE</p>
+          <h3>THE GHOUL</h3>
+          <p>
+            The Ghoul patrols waypoints, stops at random, investigates a sighting
+            for 2.5 seconds, then chases. One connecting strike deals 4 damage —
+            equal to Zara's full health.
+          </p>
+
+          <div class="threat-meter" role="img" aria-label="Threat level: extreme">
+            <i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i>
+          </div>
+          <p class="threat-meter__label">THREAT LEVEL <strong>EXTREME</strong></p>
+
+          <ul class="threat__quick">
+            <li><span>Vision</span><strong>12 m cone · 6 m arc · 2.5 m all-round</strong></li>
+            <li><span>Patrol</span><strong>2 m/s</strong></li>
+            <li><span>Chase</span><strong>6 m/s</strong></li>
+            <li><span>Strike</span><strong>4 damage · fatal</strong></li>
+            <li><span>Animation</span><strong>Separate humanoid clip · no embedded take</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="threat threat--reverse reveal" data-subject="zombie">
+        <figure class="threat__frame threat__frame--viewer">
+          <div class="model-viewer model-viewer--threat" data-label="The Zombie">
+            <div class="viewer__canvas" data-viewer-canvas></div>
+            <div class="viewer__atmosphere" aria-hidden="true"></div>
+
+            <div class="viewer__hud viewer__hud--top">
+              <span class="viewer__tag">SUBJECT 02 · ZOMBIE</span>
+              <span class="viewer__live"><i aria-hidden="true"></i> LIVE SCAN</span>
+            </div>
+
+            <div class="viewer__variants" aria-label="Zombie specimen variant">
+              <span>SPECIMEN</span>
+              <button type="button" data-zombie-variant="c" class="is-active" aria-pressed="true">C</button>
+              <button type="button" data-zombie-variant="d" aria-pressed="false">D</button>
+              <button type="button" data-zombie-variant="t" aria-pressed="false">T</button>
+            </div>
+
+            <div class="viewer__toolbar">
+              <button type="button" data-viewer-reset aria-label="Reset 3D camera">RESET VIEW</button>
+              <button type="button" data-viewer-fullscreen aria-label="View the Zombie in full screen">FULL SCREEN</button>
+            </div>
+
+            <div class="viewer__loading" data-viewer-loading>
+              <span class="viewer__spinner" aria-hidden="true"></span>
+              <p>RECONSTRUCTING SUBJECT…</p>
+              <small data-viewer-loadmsg>Loading Zombie specimen C</small>
+            </div>
+
+            <div class="viewer__fallback" data-viewer-fallback hidden role="alert">
+              <span>3D CAPTURE UNAVAILABLE</span>
+              <p data-viewer-fallback-msg>This Zombie variant could not be loaded. The threat file remains available.</p>
+              <button class="viewer__retry" type="button" data-viewer-retry>RETRY LOAD</button>
+            </div>
+
+            <div class="viewer__foot">
+              <span class="viewer__model" data-viewer-model>zombieC.fbx · Zombie C.png</span>
+              <span class="viewer__note" data-viewer-note>ACTUAL ZOMBIE MESH · VARIANTS C / D / T</span>
+            </div>
+
+            <span class="viewer__hint">DRAG TO ROTATE · SCROLL TO ZOOM</span>
+            <noscript><div class="viewer__noscript">The 3D specimen needs JavaScript. The threat file is still readable without it.</div></noscript>
+          </div>
+          <figcaption>ACTUAL GAME MESHES · VARIANTS C / D / T</figcaption>
+        </figure>
+
+        <div class="threat__readout">
+          <p class="threat__class">CLASSIFIED / HOSTILE</p>
+          <h3>THE ZOMBIE <span>VARIANTS C / D / T</span></h3>
+          <p>
+            Faster than the Ghoul but frailer. The Zombie shares the same patrol /
+            investigate / chase state machine, reaches 6.5 metres per second, and
+            takes two hits to put down. Three unique specimen meshes are configured.
+          </p>
+
+          <div class="threat-meter" role="img" aria-label="Threat level: high">
+            <i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i></i>
+          </div>
+          <p class="threat-meter__label">THREAT LEVEL <strong>HIGH</strong></p>
+
+          <ul class="threat__quick">
+            <li><span>Vision</span><strong>12 m cone · 6 m arc · 2.5 m all-round</strong></li>
+            <li><span>Patrol</span><strong>5 m/s</strong></li>
+            <li><span>Chase</span><strong>6.5 m/s</strong></li>
+            <li><span>Strike</span><strong>1 damage</strong></li>
+            <li><span>Health</span><strong>2</strong></li>
+            <li><span>Animation</span><strong>Separate humanoid clip · no embedded take</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="threat-files">
+        <article class="threat-file threat-file--ghoul reveal">
+          <header>
+            <span class="threat-file__no">SUBJECT 01</span>
+            <h3>GHOUL</h3>
+            <p>THREAT: EXTREME</p>
+          </header>
+          <dl>
+            <div><dt>Configured name</dt><dd>Ghoul</dd></div>
+            <div><dt>Patrol speed</dt><dd>2 m/s</dd></div>
+            <div><dt>Chase speed</dt><dd>6 m/s</dd></div>
+            <div><dt>Strike damage</dt><dd>4 — equal to Zara's full health</dd></div>
+            <div><dt>Behaviour</dt><dd>Patrols waypoints, stops at random, investigates a sighting for 2.5 s, then chases.</dd></div>
+            <div><dt>Origin</dt><dd>Undisclosed</dd></div>
+          </dl>
+          <p class="threat-file__note">A single connecting hit ends the run.</p>
+        </article>
+
+        <article class="threat-file reveal">
+          <header>
+            <span class="threat-file__no">SUBJECT 02</span>
+            <h3>ZOMBIE</h3>
+            <p>THREAT: HIGH</p>
+          </header>
+          <dl>
+            <div><dt>Configured name</dt><dd>Zombie — variants C, D and T</dd></div>
+            <div><dt>Patrol speed</dt><dd>5 m/s</dd></div>
+            <div><dt>Chase speed</dt><dd>6.5 m/s</dd></div>
+            <div><dt>Strike damage</dt><dd>1</dd></div>
+            <div><dt>Health</dt><dd>2</dd></div>
+            <div><dt>Behaviour</dt><dd>Same patrol / investigate / chase state machine as the Ghoul.</dd></div>
+            <div><dt>Origin</dt><dd>Undisclosed</dd></div>
+          </dl>
+          <p class="threat-file__note">Slower to kill you, faster to reach you.</p>
+        </article>
+      </div>
+
+      <div class="survival reveal">
+        <h3 class="survival__title">Survival notes <span>— taken from the actual AI</span></h3>
+        <ol>
+          <li>
+            <strong>Walls are your only armour.</strong>
+            Its vision needs an unobstructed line. Put a building between you and
+            it, and the chase clock starts.
+          </li>
+          <li>
+            <strong>Two seconds is the gap.</strong>
+            Stay unseen for two seconds and it stops chasing. It waits four more,
+            then returns to patrol.
+          </li>
+          <li>
+            <strong>Speed is a loan.</strong>
+            Zara sprints at 10 m/s against a 6–6.5 m/s chase, but the meter lasts
+            eight seconds. Use it to reach a corner, not to win a footrace.
+          </li>
+          <li>
+            <strong>Listen for the stab.</strong>
+            A musical stab and the chase score mean you have been noticed. The
+            silence afterwards is not safety — it is a four-second wait.
+          </li>
+          <li>
+            <strong>The first hit can be the last.</strong>
+            Zara has 4 health. A Ghoul strike deals 4; a Zombie deals 1. Bandages
+            heal 1, med kits heal 2.
+          </li>
+          <li>
+            <strong>Fighting is not the plan.</strong>
+            The bat exists, but the game is built around avoidance and item
+            management, not clearing rooms.
+          </li>
+        </ol>
+        <p class="survival__note">
+          No abilities, weaknesses, lore or behaviour beyond the configured values
+          above are presented as fact. The project does not explain what the
+          creatures are.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LOCATIONS ===================== -->
+  <section class="section chapter chapter--places" id="locations" aria-labelledby="locationsTitle">
+    <span class="chapter__index" aria-hidden="true">05</span>
+    <div class="wrap">
+      <header class="chapter__head reveal">
+        <p class="kicker">05 // Locations</p>
+        <h2 class="chapter__title" id="locationsTitle">PLACES YOU SHOULD <br><em>NEVER VISIT</em></h2>
+        <p class="chapter__deck">
+          Four levels, one continuous night. These are the names the game puts on
+          its own streets — on signs, on its maps, and in the mouths of the people
+          still standing in them.
+        </p>
+      </header>
+
+      <div class="places">
+        <article class="place reveal">
+          <figure class="place__media">
+            <img src="assets/images/shot-level1.webp" alt="The backlot at night: brick walls, bins, traffic cones and a single working lamp" width="1280" height="720" loading="lazy" decoding="async">
+            <figcaption>LEVEL 01</figcaption>
+          </figure>
+          <div class="place__body">
+            <p class="place__no" aria-hidden="true">01</p>
+            <p class="place__tag">SIGNED IN-GAME — “BACKLOT GATE”</p>
+            <h3>THE BACKLOT</h3>
+            <p>
+              Bins, traffic cones, brick walls and a line of lamps that only half
+              work. The first locked gate is here; Zara's own line points through
+              it. Somewhere past the houses, an exit lamp burns green.
+            </p>
+            <ul class="place__notes">
+              <li>Locked backlot gate</li>
+              <li>Key search</li>
+              <li>Green exit light</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="place reveal">
+          <figure class="place__media">
+            <img src="assets/images/shot-level2.webp" alt="A service alley with distant lamps and the game's interaction prompt visible" width="1280" height="720" loading="lazy" decoding="async">
+            <figcaption>LEVEL 02</figcaption>
+          </figure>
+          <div class="place__body">
+            <p class="place__no" aria-hidden="true">02</p>
+            <p class="place__tag">NAMED IN DIALOGUE — “THIS NEIGHBOURHOOD”</p>
+            <h3>THE NEIGHBOURHOOD</h3>
+            <p>
+              A longer service road with the houses pressed close. Arnold calls it
+              “this neighbourhood” and warns that odd things are happening. The
+              map's first instruction is not a route. It is two words:
+              <strong>FIND THE KEY</strong>.
+            </p>
+            <ul class="place__notes">
+              <li>Arnold's warning</li>
+              <li>Map clue</li>
+              <li>Long dark approach</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="place reveal">
+          <figure class="place__media">
+            <img src="assets/images/shot-level3.webp" alt="A long street with fences, gates and widely spaced lamps" width="1280" height="720" loading="lazy" decoding="async">
+            <figcaption>LEVEL 03</figcaption>
+          </figure>
+          <div class="place__body">
+            <p class="place__no" aria-hidden="true">03</p>
+            <p class="place__tag">SIGNED IN-GAME — “SIDE GATE”</p>
+            <h3>THE SIDE GATE</h3>
+            <p>
+              Fences, side gates and long sightlines. Johnny stands here,
+              frightened of every approach until he recognises Zara. The map marks
+              a lock and an X, and leaves the rest to you.
+            </p>
+            <ul class="place__notes">
+              <li>Side gate</li>
+              <li>Johnny's warning</li>
+              <li>Lock &amp; X on the map</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="place reveal">
+          <figure class="place__media">
+            <img src="assets/images/shot-level4.webp" alt="The dark approach to the East Gate at the edge of the field" width="1280" height="720" loading="lazy" decoding="async">
+            <figcaption>LEVEL 04</figcaption>
+          </figure>
+          <div class="place__body">
+            <p class="place__no" aria-hidden="true">04</p>
+            <p class="place__tag">LABELLED ON THE MAP — “THE FIELD”</p>
+            <h3>THE FIELD</h3>
+            <p>
+              The edge of town, where the corn begins and the map labels its own
+              outskirts “The field”. Two generator keys, a multicoloured electrical
+              box and the East Gate. Duke's voice is somewhere ahead — hurt, but
+              alive.
+            </p>
+            <ul class="place__notes">
+              <li>Cornfield</li>
+              <li>Generator keys</li>
+              <li>East Gate</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <p class="chapter__note">
+        All four images are real in-game captures from their matching levels. The
+        cornfield is present in the Level 04 scene but sits outside this frame; it
+        is not composited into the shot.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== SECRETS ===================== -->
+  <section class="section chapter chapter--secrets" id="secrets" aria-labelledby="secretsTitle">
+    <span class="chapter__index" aria-hidden="true">06</span>
+    <div class="wrap">
+      <header class="chapter__head reveal">
+        <p class="kicker">06 // Discoveries</p>
+        <h2 class="chapter__title" id="secretsTitle">NOT EVERYTHING <br><em>IS WHAT IT SEEMS</em></h2>
+        <p class="chapter__deck">
+          The town is built out of small, readable systems. None of them are
+          explained twice. These are the clues the game leaves in plain sight —
+          with every solution kept off this page.
+        </p>
+      </header>
+
+      <div class="evidence">
+        <article class="clue reveal">
+          <p class="clue__no">01 / OBJECT</p>
+          <h3>THE KEY REMEMBERS</h3>
+          <p>
+            Every key in the build carries a code, and examining it reads the
+            engraving back to you. Locks want that exact code — not simply “a
+            key”. The wrong one gets a line, not a door.
+          </p>
+          <p class="clue__redacted">CODE: <span>REDACTED</span></p>
+        </article>
+
+        <article class="clue reveal">
+          <p class="clue__no">02 / MACHINE</p>
+          <h3>TWO LOCKS, ONE BOX</h3>
+          <p>
+            Somewhere in the town there is an electrical box with two key slots.
+            Both must be satisfied before the gate it feeds will move. The box is
+            not a switch you can simply flip.
+          </p>
+          <p class="clue__redacted">KEYS: <span>2 / 2 REQUIRED</span></p>
+        </article>
+
+        <article class="clue reveal">
+          <p class="clue__no">03 / EXIT</p>
+          <h3>THE GREEN LIGHT</h3>
+          <p>
+            The route out is marked by a gate with a green light. In the first
+            level, Zara says she can use the key on “the gate over there with the
+            green light… then maybe I can get away from this place.”
+          </p>
+          <p class="clue__redacted">LOCATION: <span>REDACTED</span></p>
+        </article>
+
+        <article class="clue reveal">
+          <p class="clue__no">04 / PAPER</p>
+          <h3>THE MAP KNOWS MORE THAN IT SAYS</h3>
+          <p>
+            The map is not a route. Its own description hints at hidden spots, and
+            the Level 04 map simply marks “The field” and “You are here”. It tells
+            you what you have found, never what to do next.
+          </p>
+          <p class="clue__redacted">HIDDEN SPOTS: <span>UNMARKED</span></p>
+        </article>
+
+        <article class="clue reveal">
+          <p class="clue__no">05 / LIGHT</p>
+          <h3>SOME DOORS NEED A FLAME</h3>
+          <p>
+            The candle casts a shorter, wider light than the flashlight, and at
+            least one blocker in the build only yields once you are carrying
+            light. A darker corner is not always an empty one.
+          </p>
+          <p class="clue__redacted">BLOCKER: <span>REDACTED</span></p>
+        </article>
+
+        <article class="clue reveal">
+          <p class="clue__no">06 / PEOPLE</p>
+          <h3>SOMEONE IS STILL TALKING</h3>
+          <p>
+            Arnold and Johnny are not enemies. They know Zara, they answer
+            questions, and they cower when the chase begins. A conversation can
+            be worth more than a locked door — and it can lie by omission.
+          </p>
+          <p class="clue__redacted">TESTIMONY: <span>PARTIAL</span></p>
+        </article>
+      </div>
+
+      <p class="chapter__note">
+        Deliberately omitted from this page: every key code, key location, fuse
+        order and gate solution. The mysteries stay in the game.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCE ===================== -->
+  <section class="section chapter chapter--experience" id="experience" aria-labelledby="experienceTitle">
+    <span class="chapter__index" aria-hidden="true">07</span>
+    <div class="wrap">
+      <header class="chapter__head reveal">
+        <p class="kicker">07 // Game experience</p>
+        <h2 class="chapter__title" id="experienceTitle">YOUR ONLY WAY OUT <br><em>IS TO SURVIVE</em></h2>
+        <p class="chapter__deck">
+          No quest arrow. No minimap. A flashlight, a candle and whatever the town
+          will give you. The loop is simple, and it is built to make you hesitate.
+        </p>
+      </header>
+
+      <ol class="route reveal" aria-label="The gameplay loop">
+        <li>
+          <span class="route__no">01</span>
+          <h3>Explore</h3>
+          <p>Walk the streets and learn the layout by hand.</p>
+        </li>
+        <li>
+          <span class="route__no">02</span>
+          <h3>Search</h3>
+          <p>Pick up keys, light and whatever keeps you alive.</p>
+        </li>
+        <li>
+          <span class="route__no">03</span>
+          <h3>Light</h3>
+          <p>Find the candle. See what the dark is hiding.</p>
+        </li>
+        <li>
+          <span class="route__no">04</span>
+          <h3>Solve</h3>
+          <p>Match codes, power boxes, open gates.</p>
+        </li>
+        <li>
+          <span class="route__no">05</span>
+          <h3>Navigate</h3>
+          <p>Read the map. Find the hidden spots.</p>
+        </li>
+        <li>
+          <span class="route__no">06</span>
+          <h3>Escape</h3>
+          <p>Reach the gate before it reaches you.</p>
+        </li>
+      </ol>
+
+      <div class="experience">
+        <figure class="experience__frame reveal">
+          <img src="assets/images/shot-level1.webp" alt="Exploring a dark street with bins and cones in PREY: THE ESCAPE" width="1280" height="720" loading="lazy" decoding="async">
+          <figcaption>EXPLORATION · LEVEL 01</figcaption>
+        </figure>
+        <div class="experience__copy reveal">
+          <p class="kicker">FIELD MANUAL // 01</p>
+          <h3>Walk until the map makes sense</h3>
+          <p>
+            The town is the map. Streets, backlots and service roads connect in
+            ways you only learn by walking them. Pickups are physical objects in
+            the world, not menu rewards — and there are only sixteen slots to
+            carry them in.
+          </p>
+          <ul class="data-list">
+            <li><span>Inventory</span><strong>16 slots</strong></li>
+            <li><span>Interaction reach</span><strong>4 metres</strong></li>
+            <li><span>Items in the build</span><strong>Keys, candle, flashlight, map, bandage, med kit, bat</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="experience experience--reverse">
+        <figure class="experience__frame reveal">
+          <img src="assets/images/shot-level4.webp" alt="A dark street at the edge of the field, where the generator puzzle is" width="1280" height="720" loading="lazy" decoding="async">
+          <figcaption>LIGHT &amp; LOCKS · LEVEL 04</figcaption>
+        </figure>
+        <div class="experience__copy reveal">
+          <p class="kicker">FIELD MANUAL // 02</p>
+          <h3>Carry light. Read the locks.</h3>
+          <p>
+            The flashlight is a thin beam; the candle is shorter but wider, and it
+            is the item that clears at least one light-blocked passage. Keys carry
+            engraved codes. The electrical box has two slots and refuses to power
+            anything until both are filled.
+          </p>
+          <ul class="data-list">
+            <li><span>Candle</span><strong>Shorter, wider light</strong></li>
+            <li><span>Flashlight</span><strong>Narrow beam</strong></li>
+            <li><span>Electrical box</span><strong>Two generator keys</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="experience">
+        <figure class="experience__frame reveal">
+          <img src="assets/images/shot-level3.webp" alt="A long street with lamps, fences and gates, used for map navigation" width="1280" height="720" loading="lazy" decoding="async">
+          <figcaption>SURVIVAL &amp; ESCAPE · LEVEL 03</figcaption>
+        </figure>
+        <div class="experience__copy reveal">
+          <p class="kicker">FIELD MANUAL // 03</p>
+          <h3>Outlast the night</h3>
+          <p>
+            Health is four points, not a regenerating bar. The map shows what you
+            have found. The gate needs power. Between those three facts is the
+            whole game: search carefully, spend health wisely, and do not let the
+            chase music catch you in the open.
+          </p>
+          <ul class="data-list">
+            <li><span>Health</span><strong>4 points</strong></li>
+            <li><span>Sprint</span><strong>10 m/s · 8 s meter</strong></li>
+            <li><span>Healing</span><strong>Bandage +1 · Med kit +2</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section class="section" id="features" aria-labelledby="featuresTitle">
+    <div class="wrap">
+      <p class="kicker">08 // Features</p>
+      <h2 class="section__title" id="featuresTitle">Designed to be felt</h2>
+      <ul class="features">
+        <li class="feature">
+          <span class="feature__no" aria-hidden="true">01</span>
+          <h3>First-Person Horror</h3>
+          <p>Immersive first-person perspective with a touch-first control scheme.</p>
+        </li>
+        <li class="feature">
+          <span class="feature__no" aria-hidden="true">02</span>
+          <h3>Exploration-Based Gameplay</h3>
+          <p>Search the streets, alleys and interiors. The environment is the map.</p>
+        </li>
+        <li class="feature">
+          <span class="feature__no" aria-hidden="true">03</span>
+          <h3>Puzzle Solving</h3>
+          <p>Key codes, two-slot electrical boxes and gates that demand thought, not reflexes.</p>
+        </li>
+        <li class="feature">
+          <span class="feature__no" aria-hidden="true">04</span>
+          <h3>Item Discovery</h3>
+          <p>Find keys, a candle, a flashlight and a map hidden throughout the town.</p>
+        </li>
+        <li class="feature">
+          <span class="feature__no" aria-hidden="true">05</span>
+          <h3>Atmospheric Environments</h3>
+          <p>PS1-style rendering, failing lamps, fog and a town that never quite sleeps.</p>
+        </li>
+        <li class="feature">
+          <span class="feature__no" aria-hidden="true">06</span>
+          <h3>Survival &amp; Escape</h3>
+          <p>Four points of health, a sprint meter and a Ghoul that can end it in one hit.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== SCREENSHOTS ===================== -->
+  <section class="section section--shots" id="screenshots" aria-labelledby="shotsTitle">
+    <div class="wrap">
+      <p class="kicker">09 // Screenshots</p>
+      <h2 class="section__title" id="shotsTitle">Captured from the game</h2>
+      <p class="section__sub">Real in-game frames. Click any shot to enlarge.</p>
+      <div class="gallery" id="gallery">
+        <button class="shot" type="button" data-full="assets/images/shot-menu.webp"
+                data-caption="Main menu — the district seen from above.">
+          <img src="assets/images/shot-menu.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+          <span class="shot__cap">Main menu</span>
+        </button>
+        <button class="shot" type="button" data-full="assets/images/shot-level1.webp"
+                data-caption="Level 1 — the first street. Bins, cones and one working lamp.">
+          <img src="assets/images/shot-level1.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+          <span class="shot__cap">Level 1</span>
+        </button>
+        <button class="shot" type="button" data-full="assets/images/shot-level2.webp"
+                data-caption="Level 2 — a service alley, with the interaction prompt visible.">
+          <img src="assets/images/shot-level2.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+          <span class="shot__cap">Level 2</span>
+        </button>
+        <button class="shot" type="button" data-full="assets/images/shot-level3.webp"
+                data-caption="Level 3 — long sightlines between the lamps.">
+          <img src="assets/images/shot-level3.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+          <span class="shot__cap">Level 3</span>
+        </button>
+        <button class="shot" type="button" data-full="assets/images/shot-level4.webp"
+                data-caption="Level 4 — the dark approach to the East Gate.">
+          <img src="assets/images/shot-level4.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+          <span class="shot__cap">Level 4</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TRAILER ===================== -->
+  <section class="section section--trailer" id="trailer" aria-labelledby="trailerTitle">
+    <div class="wrap">
+      <p class="kicker">10 // Trailer</p>
+      <h2 class="section__title" id="trailerTitle">See the night first</h2>
+      <p class="section__sub">The official trailer is still in the edit. The frames below are the game itself.</p>
+      <div class="trailer" role="img" aria-label="Trailer placeholder: a dark street from the game">
+        <img src="assets/images/shot-level3.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+        <div class="trailer__frame">
+          <span class="trailer__play" aria-hidden="true">&#9654;</span>
+          <span class="trailer__label">Official trailer — coming soon</span>
+          <p class="trailer__note">
+            No video has been published yet, so nothing here autoplays or pretends to.
+            Until then, the screenshots section is your best look at the game.
+          </p>
+          <a class="btn btn--ghost" href="#screenshots">SEE THE SCREENSHOTS</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DOWNLOAD ===================== -->
+  <section class="section" id="download" aria-labelledby="downloadTitle">
+    <div class="wrap">
+      <p class="kicker">11 // Download</p>
+      <h2 class="section__title" id="downloadTitle">Get the APK</h2>
+
+      <div class="grid grid--2 grid--align">
+        <div class="dl-panel">
+          <div class="dl-panel__head">
+            <img src="assets/icons/apk-icon.png" alt="PREY: THE ESCAPE app icon" width="64" height="64" loading="lazy" decoding="async">
+            <div>
+              <h3>PREY: THE ESCAPE</h3>
+              <p class="dl-panel__file">PREY_THE_ESCAPE_v1.0.6_RELEASE.apk</p>
+            </div>
+          </div>
+
+          <table class="spec">
+            <caption class="visually-hidden">APK technical details</caption>
+            <tbody>
+              <tr><th scope="row">Version</th><td>1.0.6 (version code 6)</td></tr>
+              <tr><th scope="row">File size</th><td id="apkSize">55.2 MB (57,907,890 bytes)</td></tr>
+              <tr><th scope="row">Minimum Android</th><td>Android 7.1 — API 25</td></tr>
+              <tr><th scope="row">Architecture</th><td>ARM64 (arm64-v8a)</td></tr>
+              <tr><th scope="row">Package</th><td>com.shiva.preytheescape</td></tr>
+              <tr><th scope="row">Distribution</th><td>Direct APK — outside Google Play</td></tr>
+              <tr><th scope="row">Signing</th><td><span class="tag tag--warn">Release-signed</span> testing build</td></tr>
+              <tr><th scope="row">Target API</th><td><span class="tag tag--warn">API 37</span> (compiled with SDK 37)</td></tr>
+            </tbody>
+          </table>
+
+          <a class="btn btn--primary btn--block btn--download" href="downloads/PREY_THE_ESCAPE_v1.0.6_RELEASE.apk"
+             download="PREY_THE_ESCAPE_v1.0.6_RELEASE.apk" data-download>
+            <span class="btn__label">DOWNLOAD APK — 55.2 MB</span>
+            <span class="btn__meta">v1.0.6 · ARM64 · Android 7.1+</span>
+          </a>
+
+          <p class="dl-panel__note">
+            <strong>Testing build.</strong> The APK is a production release signed
+            for distribution, but it targets Android API 37 and is not on the
+            Google Play Store. It installs and runs as a sideloaded app.
+          </p>
+        </div>
+
+        <div class="install">
+          <h3 class="install__title">How to install</h3>
+          <ol class="install__steps">
+            <li>
+              <strong>Download the APK</strong>
+              <span>Tap the download button. Your browser will save <code>PREY_THE_ESCAPE_v1.0.6_RELEASE.apk</code>.</span>
+            </li>
+            <li>
+              <strong>Open the file</strong>
+              <span>Open it from your notification shade or Downloads folder using any file manager.</span>
+            </li>
+            <li>
+              <strong>Allow the source, if asked</strong>
+              <span>Android warns that the app is from outside Google Play. Go to <em>Settings → Allow from this source</em>, then retry.</span>
+            </li>
+            <li>
+              <strong>Tap Install</strong>
+              <span>Launch <em>PREY: THE ESCAPE</em> from your home screen.</span>
+            </li>
+          </ol>
+
+          <div class="notice">
+            <strong>Verify the download.</strong> The SHA-256 of this exact release file is
+            <code id="apkHash">6a0dafe41f85aeb5187d5b88b59d526f2ed21f78694a08a3bfe4f10049fe536a</code>
+            <span class="install__checksum">You can confirm it with <code>sha256sum</code> on macOS/Linux or <code>Get-FileHash</code> on Windows.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section" id="faq" aria-labelledby="faqTitle">
+    <div class="wrap wrap--narrow">
+      <p class="kicker">12 // FAQ</p>
+      <h2 class="section__title" id="faqTitle">Questions in the dark</h2>
+      <div class="faq" id="faqList">
+        <div class="faq__item">
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq1" id="faq1btn">Is the game free?</button></h3>
+          <div class="faq__a" id="faq1" role="region" aria-labelledby="faq1btn" hidden>
+            <p>Yes. The APK on this page is a free download. There are no in-app purchases and no ads.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq2" id="faq2btn">Do I need an internet connection?</button></h3>
+          <div class="faq__a" id="faq2" role="region" aria-labelledby="faq2btn" hidden>
+            <p>No. The game runs entirely offline. No account, no login, no always-online check.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq3" id="faq3btn">Which phones are supported?</button></h3>
+          <div class="faq__a" id="faq3" role="region" aria-labelledby="faq3btn" hidden>
+            <p>The build requires Android 7.1 (API 25) or newer and contains ARM64 binaries only, which covers essentially every phone sold in the last several years.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq4" id="faq4btn">Who is Zara?</button></h3>
+          <div class="faq__a" id="faq4" role="region" aria-labelledby="faq4btn" hidden>
+            <p>Zara is the player character. The intro crawl establishes that she wakes to find her brother and bunkmate Duke gone from the house, and sets out across the town to find him.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq5" id="faq5btn">What is hunting me?</button></h3>
+          <div class="faq__a" id="faq5" role="region" aria-labelledby="faq5btn" hidden>
+            <p>The build configures two enemy types: the Ghoul, which strikes for your entire health bar, and Zombies, which are faster but deal less damage. Their origin is not explained in the game.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq6" id="faq6btn">Will my progress be saved?</button></h3>
+          <div class="faq__a" id="faq6" role="region" aria-labelledby="faq6btn" hidden>
+            <p>Yes. Each level you clear is remembered, and the CONTINUE button on the main menu takes you back to your furthest point.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq7" id="faq7btn">What content is in the APK?</button></h3>
+          <div class="faq__a" id="faq7" role="region" aria-labelledby="faq7btn" hidden>
+            <p>The full game: menu, intro crawl, Level 1 through Level 4, loading screen, and the in-app settings that control music, sound effects, controls and graphics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="section section--contact" id="contact" aria-labelledby="contactTitle">
+    <div class="wrap wrap--narrow">
+      <p class="kicker">13 // Contact</p>
+      <h2 class="section__title" id="contactTitle">Contact us</h2>
+      <p class="section__sub">Questions, feedback, device problems — all welcome.</p>
+      <div class="contact-card">
+        <ul class="contact-list">
+          <li>
+            <span class="contact-list__label">Developer / Studio</span>
+            <span class="contact-list__value">SHIVA × WEBLOOM</span>
+          </li>
+          <li>
+            <span class="contact-list__label">Email</span>
+            <a class="contact-list__value" href="mailto:webloom.in00@gmail.com">webloom.in00@gmail.com</a>
+          </li>
+        </ul>
+        <div class="contact-actions">
+          <a class="btn btn--primary" href="mailto:webloom.in00@gmail.com?subject=PREY: THE ESCAPE — Contact">WRITE AN EMAIL</a>
+          <a class="btn btn--quiet" href="#download">GET THE GAME</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLOSING CTA ===================== -->
+  <section class="section section--final" aria-labelledby="finalTitle">
+    <div class="wrap final">
+      <div class="final__flicker" aria-hidden="true"></div>
+      <h2 class="final__title" id="finalTitle">The door is still open.<br>For now.</h2>
+      <a class="btn btn--primary btn--lg btn--download" href="downloads/PREY_THE_ESCAPE_v1.0.6_RELEASE.apk"
+         download="PREY_THE_ESCAPE_v1.0.6_RELEASE.apk" data-download>
+        <span class="btn__label">DOWNLOAD FOR ANDROID</span>
+        <span class="btn__meta">Free APK · v1.0.6 · 55.2 MB</span>
+      </a>
+      <p class="final__meta">Android 7.1+ · ARM64 · Outside Google Play</p>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div class="site-footer__brand">
+      <strong class="brand">PREY: THE ESCAPE</strong>
+      <span>First-person horror for Android</span>
+    </div>
+    <nav class="site-footer__nav" aria-label="Footer">
+      <a href="#about">About</a>
+      <a href="#story">Story</a>
+      <a href="#characters">Characters</a>
+      <a href="#enemies">Enemies</a>
+      <a href="#locations">Locations</a>
+      <a href="#secrets">Secrets</a>
+      <a href="#experience">Experience</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="#trailer">Trailer</a>
+      <a href="#download">Download</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="site-footer__legal">
+      <a href="mailto:webloom.in00@gmail.com">webloom.in00@gmail.com</a>
+      <span aria-hidden="true">·</span>
+      <span>SHIVA × WEBLOOM</span>
+    </div>
+    <p class="site-footer__made">MADE BY SHIVA</p>
+    <p class="site-footer__disclaimer">
+      Not affiliated with Google. Not published on Google Play. All screenshots are
+      captured from the game itself. Story details are taken from the project's
+      intro crawl, maps and dialogue; undisclosed details are labelled as such.
+    </p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer" hidden>
+  <div class="lightbox__backdrop" data-close></div>
+  <figure class="lightbox__figure">
+    <img class="lightbox__img" id="lightboxImg" alt="">
+    <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+  </figure>
+  <button class="lightbox__btn lightbox__btn--prev" id="lbPrev" type="button" aria-label="Previous screenshot">&#10094;</button>
+  <button class="lightbox__btn lightbox__btn--next" id="lbNext" type="button" aria-label="Next screenshot">&#10095;</button>
+  <button class="lightbox__btn lightbox__btn--close" id="lbClose" type="button" aria-label="Close viewer">&#10005;</button>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "./js/vendor/three/three.module.js",
+    "three/addons/": "./js/vendor/three/addons/"
+  }
+}
+</script>
+<script src="js/main.js" defer></script>
+<script type="module" src="js/viewer.js"></script>
+</body>
+</html>

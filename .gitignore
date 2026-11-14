@@ -1,0 +1,8 @@
+# PREY-WEBSITE — site-only gitignore
+
+# Local dev server artifacts
+node_modules/
+._*
+
+# Disabled copy of index.html, if any
+public/index.html.bak
