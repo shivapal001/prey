@@ -1,0 +1,4 @@
+# Cloudflare Pages routing rules.
+# Pages rejects single assets over 25 MiB, and the Android build is 56 MB, so the
+# APK stays in the GitHub repo and this rule keeps the site's download links working.
+/downloads/PREY_THE_ESCAPE_v1.0.6_RELEASE.apk  https://github.com/shivapal001/prey/raw/main/public/downloads/PREY_THE_ESCAPE_v1.0.6_RELEASE.apk  302
